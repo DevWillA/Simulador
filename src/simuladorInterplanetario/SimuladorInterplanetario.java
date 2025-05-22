@@ -13,6 +13,7 @@ public class SimuladorInterplanetario {
     private static boolean aumentoRecursos;
     private static boolean naveFallandoGasolina = false;
     private static boolean naveFallandoOxigeno = false;
+    private static int reparacionesRealizadas = 0;
 
     public static void startGame() {
         var sc = new Scanner(System.in);
@@ -22,13 +23,13 @@ public class SimuladorInterplanetario {
         int eventosSubitos;
 
         // Inicimos el programa
-        System.out.println("""       
-                            .   *     o     .
-           O   .  *    o .   .    O   .  *    o  *  o     *    .   o
-            Hola Bienvenido al Simulador de Vuelo interplanetario
-              o   *    .    * o   *   .     *   . *   .   o   *  o    *
-                            .  *  o    .   *
-                """);
+        System.out.println("""
+                                 .   *     o     .
+                O   .  *    o .   .    O   .  *    o  *  o     *    .   o
+                 Hola Bienvenido al Simulador de Vuelo interplanetario
+                   o   *    .    * o   *   .     *   . *   .   o   *  o    *
+                                 .  *  o    .   *
+                     """);
         do {
             String[] menu1 = menuInicial();
 
@@ -214,7 +215,6 @@ public class SimuladorInterplanetario {
             }
 
             System.out.println(naveVolando(etapa));
-            
 
             // Validamos si es necesario las reservas de combustible y oxígeno
             consumirReservaCombustible();
@@ -276,8 +276,48 @@ public class SimuladorInterplanetario {
         } else {
             System.out.println("Proceso completado, llegamos a " + planetSelect(destino));
             mensajeLlegaste();
+
+            // Logros
+            System.out.println("Logros desbloqueados:");
+            evaluarLogros(destino, true, eventosSubitos, reparacionesRealizadas);
+
         }
         sc.close();
+    }
+
+    private static void evaluarLogros(int destino, boolean viajeExitoso, int eventosSubitos, int reparacionesRealizadas) {
+    // 🌟 Viajero Estelar
+    if (fuelReerva == 0 && oxigenoReserva == 0 && viajeExitoso) {
+        System.out.println("🌟 Logro desbloqueado: Viajero Estelar");
+    }
+
+    // 🔥 Contra todo pronóstico
+    double porcentajeCombustible = (fuel - fuelCosumido) / fuel;
+    double porcentajeOxigeno = (oxigeno - oxigenoCosumido) / oxigeno;
+
+    if (viajeExitoso && (porcentajeCombustible < 0.05 || porcentajeOxigeno < 0.05)) {
+        System.out.println("🔥 Logro desbloqueado: Contra todo pronóstico");
+    }
+
+    // 🔧 Mecánico Espacial
+    if (reparacionesRealizadas >= 2) {
+        System.out.println("🔧 Logro desbloqueado: Mecánico Espacial");
+    }
+
+    // 🚀 Sin un rasguño
+    if (eventosSubitos == 0 && !naveFallandoGasolina && !naveFallandoOxigeno) {
+        System.out.println("🚀 Logro desbloqueado: Sin un rasguño");
+    }
+
+    // 🌌 Explorador Supremo
+    if (destino == 7 && viajeExitoso) {
+        System.out.println("🌌 Logro desbloqueado: Explorador Supremo");
+    }
+    
+    // 📉 Eficiencia Total
+    if (porcentajeCombustible > 0.5 && porcentajeOxigeno > 0.5) {
+        System.out.println("📉 Logro desbloqueado: Eficiencia Total");
+    }
     }
 
     // Retornos de mensajes asccii
@@ -291,16 +331,6 @@ public class SimuladorInterplanetario {
                 """);
     }
 
-    private static void getLogros() {
-        System.out.println("""
-                  🌟 Viajero Estelar
-                  🔥 Contra todo pronóstico
-                  🔧 Mecánico Espacial
-                  🚀 Sin un rasguño
-                  🌌 Explorador Supremo
-                  📉 Eficiencia Total
-                """);
-    }
 
     private static String naveVolando(int count) {
         return switch (count) {
@@ -537,6 +567,8 @@ public class SimuladorInterplanetario {
         } while (opcion != 1 && opcion != 2);
 
         if (opcion == 1) {
+
+            reparacionesRealizadas++;
             System.out.println("Fallo reparado");
             mensajesStop1();
             naveFallandoOxigeno = false;
@@ -699,7 +731,7 @@ public class SimuladorInterplanetario {
     private static String[] menuNaves(int destino) {
 
         System.out.println("Para su viaje a " + planetSelect(destino) + " necesitamos una nave.");
-        
+
         mensajesStop1();
 
         return new String[] {
