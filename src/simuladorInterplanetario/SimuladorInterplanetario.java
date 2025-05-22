@@ -291,6 +291,17 @@ public class SimuladorInterplanetario {
                 """);
     }
 
+    private static void getLogros() {
+        System.out.println("""
+                  🌟 Viajero Estelar
+                  🔥 Contra todo pronóstico
+                  🔧 Mecánico Espacial
+                  🚀 Sin un rasguño
+                  🌌 Explorador Supremo
+                  📉 Eficiencia Total
+                """);
+    }
+
     private static String naveVolando(int count) {
         return switch (count) {
             case 1 -> """
