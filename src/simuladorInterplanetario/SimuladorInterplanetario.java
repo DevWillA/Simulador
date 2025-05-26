@@ -429,23 +429,5 @@ public class SimuladorInterplanetario {
         reparacionesRealizadas = 0;
     }
     
-    public static void calcularTiempoSenal() {
-    double velocidadLuz = 299792.458; // km/s
-
-    String[] planetas = {
-        "Mercurio", "Venus", "Marte", "Júpiter", "Saturno", "Urano", "Neptuno", "Plutón"
-    };
-    
-    double[] distancias = {
-        91.7, 41.4, 78.3, 628.7, 1275.0, 2721.0, 4351.0, 5869.7  // en millones de km
-    };
-
-    System.out.println("Tiempo que tarda una señal en llegar a cada planeta:");
-    for (int i = 0; i < planetas.length; i++) {
-        double tiempoSegundos = (distancias[i] * 1_000_000) / velocidadLuz;
-        double tiempoMinutos = tiempoSegundos / 60;
-        System.out.printf("- %s: %.2f minutos\n", planetas[i], tiempoMinutos);
-    }
-}
 
 }
