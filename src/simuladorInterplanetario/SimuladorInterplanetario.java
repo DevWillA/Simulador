@@ -35,6 +35,28 @@ public class SimuladorInterplanetario {
                    o   *    .    * o   *   .     *   . *   .   o   *  o    *
                                  .  *  o    .   *
                      """);
+
+        int opcion;
+        do {
+            System.out.println("\n--- MENÚ DEL SIMULADOR ---");
+            System.out.println("1. Ver tiempo que tarda la señal en llegar a los planetas");
+            System.out.println("2. Salir");
+            System.out.print("Seleccione una opción: ");
+            opcion = sc.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    calcularTiempoSenal();
+                    break;
+                case 2:
+                    System.out.println("¡Gracias por usar el simulador! 🚀");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+            }
+        } while (opcion != 2);
+
+
         do {
             String[] menu1 = Menu.menuInicial();
 
@@ -102,7 +124,7 @@ public class SimuladorInterplanetario {
         fuel = CalculadoraNave.calculateFuel(destino, nave);
         oxigeno = CalculadoraNave.calculateOxigen(destino, nave, cantidadTripulantes);
 
-        int opcion;
+        // int opcion;
         aumentoRecursos = false;
 
         // Ingresamos al segundo menu
@@ -288,6 +310,26 @@ public class SimuladorInterplanetario {
 
         }
         sc.close();
+    }
+
+
+    public static void calcularTiempoSenal() {
+        double velocidadLuz = 299792.458; // km/s
+
+        String[] planetas = {
+            "Mercurio", "Venus", "Marte", "Júpiter", "Saturno", "Urano", "Neptuno", "Plutón"
+        };
+
+        double[] distancias = {
+            91.7, 41.4, 78.3, 628.7, 1275.0, 2721.0, 4351.0, 5869.7 // millones km
+        };
+
+        System.out.println("Tiempo que tarda una señal en llegar a cada planeta:");
+        for (int i = 0; i < planetas.length; i++) {
+            double tiempoSegundos = (distancias[i] * 1_000_000) / velocidadLuz;
+            double tiempoMinutos = tiempoSegundos / 60;
+            System.out.printf("- %s: %.2f minutos\n", planetas[i], tiempoMinutos);
+        }
     }
 
     private static void evaluarLogros(int destino, boolean viajeExitoso, int eventosSubitos, int reparacionesRealizadas) {
