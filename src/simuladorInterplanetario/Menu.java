@@ -16,7 +16,7 @@ public class Menu {
                 "1. Nave: Star Voyager | Capacidad: 3 personas | Velocidad: 100000 km/h",
                 "2. Nave: Cosmo Cruiser | Capacidad: 2 personas | Velocidad: 89000 km/h",
                 "3. Nave: Galaxy Explorer | Capacidad: 4 personas | Velocidad: 80000 km/h",
-                "4. Salir"
+                "4. Salir "
             };
             
     }
