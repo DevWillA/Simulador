@@ -40,4 +40,15 @@ public class Menu {
                 "7. Neptuno"
         };
     }
+
+    public static String[] menuTrajes() {
+        return new String[] {
+            "Seleccione el tipo de traje espacial:",
+            "1. Traje Atmosférico (planetas con aire respirable)",
+            "2. Traje Presurizado (ambientes hostiles con presión baja)",
+            "3. Traje Blindado (ambientes extremos y con radiación)",
+            "4. Salir"
+        };
+    }
+    
 }
