@@ -1,5 +1,7 @@
 package simuladorInterplanetario;
 
+import java.util.Scanner;
+
 public class Menu {
 
     // Funciones de menus
@@ -13,9 +15,45 @@ public class Menu {
                 "¿Qué tipo de nave desea?",
                 "1. Nave: Star Voyager | Capacidad: 3 personas | Velocidad: 100000 km/h",
                 "2. Nave: Cosmo Cruiser | Capacidad: 2 personas | Velocidad: 89000 km/h",
-                "3. Nave: Galaxy Explorer | Capacidad: 4 personas | Velocidad: 80000 km/h"
-        };
+                "3. Nave: Galaxy Explorer | Capacidad: 4 personas | Velocidad: 80000 km/h",
+                "4. Salir"
+            };
 
+    }
+
+     public static boolean confirmarSalida() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("¿Está seguro que desea salir? (S/N): ");
+        String respuesta = scanner.nextLine().trim().toLowerCase();
+        return respuesta.equals("s");
+    }
+
+    public static void mostrarMenuNaves(int destino) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            String[] menu = menuNaves(destino);
+
+            for (String opcion : menu) {
+                System.out.println(opcion);
+            }
+
+            System.out.print("Seleccione una opción: ");
+            int seleccion = scanner.nextInt();
+            scanner.nextLine(); // limpiar buffer
+
+            if (seleccion == 4) {
+                if (confirmarSalida()) {
+                    System.out.println("Saliendo del sistema... ¡Hasta luego!");
+                    System.exit(0);
+                } else {
+                    System.out.println("Volviendo al menú...\n");
+                }
+            } else {
+                System.out.println("Seleccionaste la opción " + seleccion);
+                break; // Continuar con el flujo si se eligió una nave
+            }
+        }
     }
 
     public static String[] menuSecond() {
